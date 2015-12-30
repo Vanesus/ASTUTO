@@ -1,0 +1,310 @@
+CREATE DATABASE ASTUTO;
+USE ASTUTO;
+CREATE TABLE usuario (id_usuario int auto_increment, login VARCHAR(10), contrasena VARCHAR(32), rol int(1), primary Key (id_usuario));
+CREATE TABLE profesor (id_profesor int auto_increment, nombre varchar(100), apellidos varchar(100), email varchar(20), localizacion varchar(100), PerfilPublico varchar(400), id_usuario int(4), PRIMARY KEY(id_Profesor));
+CREATE TABLE Est_Docente (id_EstDocente int auto_increment, nombre varchar(100), orden int(100), id_EstDocAntecesora int (4), PRIMARY KEY(id_EstDocente));
+CREATE TABLE asignatura (id_asignatura int auto_increment, nombre varchar(100), id_EstDocente int(5), PRIMARY KEY(id_Asignatura));
+CREATE TABLE ProfAsig (id_ProfAsig int auto_increment, id_Profesor int (4), id_asignatura int(4),  PRIMARY KEY(id_ProfAsig));
+CREATE TABLE Alumno (id_alumno int auto_increment, email varchar(20), nombre varchar(100),nAusencias int(3), PRIMARY KEY(id_Alumno));
+
+CREATE TABLE PeticionTut (id_peticionTut int auto_increment, id_profesor int(4), id_asignatura int(4), id_alumno int (4), motivo varchar(500), estado int(5), dia int(2), mes int(2), anyo int (4), horaInicio int(2), minutosInicio int(2), horaFin int (2), minutosFin int (2), comentarioProfesor varchar(400), code varchar(15), fechaCaducidad date, PRIMARY KEY(id_peticionTut));
+CREATE TABLE enlacesInteres(id_enlacesInteres int auto_increment,nombre varchar(50),URL varchar(50),rol int(1),PRIMARY KEY(id_enlacesInteres));
+
+CREATE TABLE configuracionTut (id_configuracionTut int auto_increment, id_profesor int(5), id_asignatura int(5),dia int(1), horaInicio int(2),minutosInicio int(2), horaFin int(2),minutosFin int(2),fechaInicio date, fechaFin date, asignacion int(5), slot int(5), metodoAsignacion int(1), previsionMinima int(4), tiempoMaxEspera int (4), nAusencias int (4),PRIMARY KEY(id_configuracionTut));
+CREATE TABLE configuracionInicial (id_configuracionInicial int auto_increment, asunto varchar(100), motivo varchar(500), enlace varchar(200),slot int(4), metodoAsignacion int(1), previsionMinima int(4), tiempoMaxEspera int (4), nAusencias int(4), primary Key (id_configuracionInicial));
+CREATE TABLE trazasAlumnos (id_trazasAlumnos int auto_increment, id_peticionTut int (5),id_profesor int(5), id_asignatura int(5), fechaPeticion date, horaInicio int(2), minutosInicio int (2), id_alumno int (5), actividad varchar(50), accion varchar(30), fecha date, hora time, primary key (id_trazasAlumnos));
+CREATE TABLE calendario (id_calendario int auto_increment, dInicio int(2), mInicio int(2), aInicio int(4), dFin int(2), mFin int(2), aFin int(4), tipo int(5), primary Key (id_calendario));
+CREATE TABLE excepcionDia (id_excepcionDia int auto_increment, dia int(2), mes int(2), anyo int(4), hInicio int(2), mInicio int(2), hFin int(2), mFin int(2),tipo int(1),id_profesor int(5), slot int(2),asignacion int(1), primary key (id_excepcionDia));
+
+
+
+INSERT INTO usuario (login, contrasena, rol) VALUES ("admin",MD5("1111"),1);
+INSERT INTO usuario (login, contrasena, rol) VALUES ("admin2",MD5("1234"),1);
+INSERT INTO usuario (login, contrasena, rol) VALUES ("cPueyo",MD5("2222"),2);
+INSERT INTO usuario (login, contrasena, rol) VALUES ("aLaguna",MD5("3333"),2);
+INSERT INTO usuario (login, contrasena, rol) VALUES ("lJimenez",MD5("4444"),2);
+INSERT INTO usuario (login, contrasena, rol) VALUES ("mCalzada",MD5("5555"),2);
+INSERT INTO usuario (login, contrasena, rol) VALUES ("sRuiz",MD5("6666"),2);
+INSERT INTO usuario (login, contrasena, rol) VALUES ("mLopez",MD5("7777"),2);
+INSERT INTO usuario (login, contrasena, rol) VALUES ("jOrtiz",MD5("8888"),2);
+
+
+INSERT INTO profesor (nombre, apellidos, email, localizacion, PerfilPublico, id_usuario) values ("Carmen", "Pueyo De La Cuesta", "pueyoC@uco.es", "Leonardo Da Vinci 1 Planta", "Catedratica de Bioquimica y Biologia Molecular",3);
+INSERT INTO profesor (nombre, apellidos, email, localizacion, PerfilPublico, id_usuario) values ("Ana Maria", "Laguna Luna", "lagunaL@uco.es", "Leonardo 1 Planta", "La direccion de trabajos academicos en la formacion inicial del profesorado de secundaria",4);
+INSERT INTO profesor (nombre, apellidos, email, localizacion, PerfilPublico, id_usuario) values ("Luis", "Jimenez Reina", "jimenezR@uco.es", "Leonardo 1 Planta", "Profesor Titular de Anatomia y Embriologia Humana",5);
+INSERT INTO profesor (nombre, apellidos, email, localizacion, PerfilPublico, id_usuario) values ("M.Del Carmen", "Calzada Canalejo", "calzadaC@uco.es", "Leonardo 1 Planta", "Departamento de Informatica y Analisis Numerico",6);
+INSERT INTO profesor (nombre, apellidos, email, localizacion, PerfilPublico, id_usuario) values ("Salvador", "Ruiz Pino", "ruizP@uco.es", "Leonardo 1 Planta", "Colaborador Honorario del Departamento de Ciencias Juridicas",7);
+
+INSERT INTO profesor (nombre, apellidos, email, localizacion, PerfilPublico, id_usuario) values ("María Jesus", "Lopez Sanchez-Vizcaino", "lopezS@uco.es", "Leonardo 1 Planta", "Departamento de Filología Inglesa y Alemana",8);
+
+INSERT INTO profesor (nombre, apellidos, email, localizacion, PerfilPublico, id_usuario) values ("Javier", "Ortiz Baquerizo", "ortizB@uco.es", "Leonardo 1 Planta", "Colaborador Honorario",9);
+
+
+
+INSERT INTO est_docente (nombre, orden) values ("F. Veterinaria",1);
+INSERT INTO est_docente (nombre, orden) values ("E.T.S.I. Agronomos y Montes",2);
+INSERT INTO est_docente (nombre, orden) values ("F. De Medicina y Cirugia",3);
+INSERT INTO est_docente (nombre, orden) values ("F. De Ciencias",4);
+INSERT INTO est_docente (nombre, orden) values ("F. De Filosofia y Letras",5);
+INSERT INTO est_docente (nombre, orden) values ("F. De Derecho y Ciencias Economicas y Empresariales",6);
+INSERT INTO est_docente (nombre, orden) values ("E. Politecnica Superior",7);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Lic. en Veterinaria",1,1);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Primer Curso",1,8);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Segundo Curso",2,8);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Tercer Curso",3,8);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Lic. en Ciencias y Tec. de los Alimentos",2,1);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Primer Curso",1,12);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Segundo Curso",2,12);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Tercer Curso",3,12);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Ing. Agronomo",1,2);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Primer Curso",1,16);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Segundo Curso",2,16);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Tercer Curso",3,16);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Ing. de Montes",2,2);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Primer Curso",1,20);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Segundo Curso",2,20);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Tercer Curso",3,20);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Lic. en Medicina",1,3);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Primer Curso",1,24);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Segundo Curso",2,24);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Tercer Curso",3,24);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Lic. en Biologia",1,4);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Primer Curso",1,28);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Segundo Curso",2,28);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Tercer Curso",3,28);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Lic. en Bioquimica",2,4);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Primer Curso",1,32);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Segundo Curso",2,32);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Tercer Curso",3,32);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Lic. en Fisica",3,4);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Primer Curso",1,36);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Segundo Curso",2,36);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Tercer Curso",3,36);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Lic. en Historia",1,5);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Primer Curso",1,40);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Segundo Curso",2,40);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Tercer Curso",3,40);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Lic. en Derecho",1,6);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Primer Curso",1,44);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Segundo Curso",2,44);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Tercer Curso",3,44);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Lic. en Admon. y Dirección de Empresas",2,6);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Primer Curso",1,48);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Segundo Curso",2,48);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Tercer Curso",3,48);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("I.T. en Informatica de Gestion",1,7);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Primer Curso",1,52);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Segundo Curso",2,52);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Tercer Curso",3,52);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("I.T. en Informatica de Sistemas",2,7);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Primer Curso",1,56);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Segundo Curso",2,56);
+INSERT INTO est_docente (nombre, orden, id_EstDocAntecesora) values ("Tercer Curso",3,56);
+
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Ingenieria quimica",13);
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Dietetica y Nutricion",13);
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Mejora y Genetica",14);
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Economia y Gestion de la Empresa Alimentaria",15);
+
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Cria y Salud Animal",9);
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Anatomia Parologica General",10);
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Patologia General",11);
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Propedeutica Clinica",11);
+
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Electrificacion Rural",17);
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Fitotecnia General",18);
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Mejora Genetica Vegetal",18);
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Politica y Regulacion de Mercado",19);
+
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Economia",21);
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Eletrotecnia Montes",21);
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Teledeteccion",22);
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Zoologia de Vertebrados",23);
+
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Inmunopatologia",25);
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Psicologia Medica",26);
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Anatomia Patologica",27);
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Resursos Tercero Medicina",27);
+
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Genetica",29);
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Bioquimica",30);
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Fisiologia Animal",30);
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Genetica",31);
+
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Inmunologia",33);
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Toxicologia Bioquimica",33);
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Biofisica",34);
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Metodologia Bioquimica",35);
+
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Fisica Cuantica",37);
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Metodos Numericos",38);
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Electromagnetismo",38);
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Optica",39);
+
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Historia e Informatica",41);
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Historia de Al-Andalus",41);
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Hisoria Moderna de Andalucia",42);
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Historia de Grecia",43);
+
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Derecho Penal",45);
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Proteccion Juridica",46);
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Derecho Penal II",46);
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Derecho Procesal",47);
+
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Microeconomia",49);
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Macroeconomia",49);
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Matematicas",50);
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Economia",51);
+
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Mtp",53);
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Base de Datos",54);
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Ingenieria del Software I",54);
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Ingles",55);
+
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Mtp",57);
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Redes",57);
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Base de Datos",58);
+INSERT INTO asignatura (nombre, id_EstDocente) values ("Ingles",59);
+
+
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (1,1);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (1,2);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (2,3);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (2,4);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (3,5);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (3,6);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (4,7);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (5,8);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (6,9);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (7,10);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (4,11);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (5,12);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (5,13);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (7,14);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (3,15);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (3,16);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (6,17);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (6,18);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (7,19);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (1,20);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (2,21);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (3,22);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (6,23);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (6,24);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (7,25);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (1,26);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (1,27);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (2,28);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (2,29);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (4,30);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (5,31);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (5,32);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (4,33);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (4,34);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (7,35);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (7,36);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (5,37);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (6,38);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (3,39);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (5,40);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (2,41);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (1,42);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (6,43);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (6,44);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (4,45);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (3,46);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (4,47);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (4,48);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (2,49);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (7,50);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (3,51);
+INSERT INTO profAsig (id_Profesor, id_asignatura) values (2,52);
+
+INSERT INTO alumno (email, nombre,nAusencias) values ("p62alpac@uco.es", "Carlos Aldea Palacios",0);
+INSERT INTO alumno (email, nombre,nAusencias) values ("d61loper@uco.es", "Rafael Lopez Perez",0);
+INSERT INTO alumno (email, nombre,nAusencias) values ("i62alpam@uco.es", "Pepa Aldea Palacios",0);
+
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (1,1,1,8,0,9,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (1,2,1,8,0,9,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (1,20,1,8,0,9,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (1,26,1,8,0,9,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (1,27,1,8,0,9,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (1,42,1,8,0,9,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (2,3,5,10,0,11,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (2,4,5,10,0,11,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (2,21,5,10,0,11,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (2,28,5,10,0,11,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (2,29,5,10,0,11,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (2,41,5,10,0,11,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (3,5,3,10,0,11,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (3,6,3,10,0,11,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (3,15,3,10,0,11,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (3,16,3,10,0,11,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (3,46,3,10,0,11,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (3,51,3,10,0,11,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (4,7,5,10,0,11,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (4,11,5,10,0,11,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (4,30,5,10,0,11,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (4,33,5,10,0,11,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (4,45,5,10,0,11,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (4,47,5,10,0,11,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (5,8,1,10,0,11,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (5,12,1,10,0,11,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (5,23,1,10,0,11,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (5,31,1,10,0,11,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (5,32,1,10,0,11,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (5,37,1,10,0,11,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (6,9,6,10,0,11,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (6,17,6,10,0,11,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (6,18,6,10,0,11,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (6,23,6,10,0,11,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (6,24,6,10,0,11,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (6,44,6,10,0,11,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (7,10,5,17,0,19,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (7,14,5,17,0,19,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (7,25,5,17,0,19,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (7,35,5,17,0,19,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (7,36,5,17,0,19,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+INSERT INTO configuracionTut (id_profesor, id_asignatura, dia, horaInicio, minutosInicio,horaFin, minutosFin, fechaInicio, fechaFin, asignacion, slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (7,50,5,17,0,19,0,"2010-11-01","2011-11-01",1,10,1,24,24,5);
+
+INSERT INTO configuracionInicial (asunto, motivo, enlace) values ("ASTUTO. Peticion Tutoria","Bienvenido a ASTUTO (Aplicacion Web para la solicitud de TUTorias Online).
+Usted ha solicitado una tutoria para la asignatura [[ASIGNATURA]] que es impartida por D.[[PROFESOR]], desea tener una tutoria por el siguiente motivo: [[MOTIVO]]. 
+Se le ha asignado para el dia [[FECHA]] a las [[HORA]].
+Para aceptar la asignacion pulse aqui [[ENLACEACEPTAR]], si por el contrario desea rechazar la asignacion pulse aqui [[ENLACERECHAZAR]].","http://localhost:8080/ASTUTO/controller/responseController.jsp");
+
+INSERT INTO configuracionInicial (asunto, motivo, enlace) values ("ASTUTO. Mis Tutorias","Bienvenido a ASTUTO (Aplicacion Web para la solicitud de TUTorias Online).
+Usted solicito una tutoria para la asignatura [[ASIGNATURA]] que es impartida por D.[[PROFESOR]], desea tener la tutoria por el siguiente motivo: [[MOTIVO]], la tutoria se encuentra en estado [[ESTADO]]
+Para eliminar la asignacion pulse aqui [[ENLACEBORRAR]].","http://localhost:8080/ASTUTO/controller/responseController.jsp");
+
+INSERT INTO configuracionInicial (asunto, motivo) values ("ASTUTO. Peticion Tutoria Eliminada","Bienvenido a ASTUTO (Aplicacion Web para la solicitud de TUTorias Online).
+Usted solicito una tutoria para la asignatura [[ASIGNATURA]] que es impartida por D.[[PROFESOR]], desea tener una tutoria por el siguiente motivo: [[MOTIVO]]. 
+Se le ha asignado para el dia [[FECHA]] a las [[HORA]].
+Por motivos adversos no se puede realizar la asignatura y ha tenido que ser eliminada. Perdone las molestias");
+
+INSERT INTO configuracionInicial (asunto, motivo, enlace) values ("ASTUTO. Petición Tutoria Modificada","Bienvenido a ASTUTO (Aplicacion Web para la solicitud de TUTorias Online).
+Usted solicito una tutoria para la asignatura [[ASIGNATURA]] que es impartida por D.[[PROFESOR]], desea tener una tutoria por el siguiente motivo: [[MOTIVO]]. 
+Ha sido reasignda para el dia [[FECHA]] a las [[HORA]].
+Para aceptar la asignacion pulse aqui [[ENLACEACEPTAR]], si por el contrario desea rechazar la asignación pulse aqui [[ENLACERECHAZAR]].","http://localhost:8080/ASTUTO/controller/responseController.jsp");
+
+INSERT INTO configuracionInicial (asunto, motivo, enlace) values ("ASTUTO. Confirmacion Solicitud en Curso","Bienvenido a ASTUTO (Aplicacion Web para la solicitud de TUTorias Online).
+Usted ha solicitado una tutoria para la asignatura [[ASIGNATURA]] que es impartida por D.[[PROFESOR]], desea tener una tutoria por el siguiente motivo: [[MOTIVO]]. 
+Para ratificar su solicitud pulse aqui [[ENLACEACEPTAR]], si por el contrario desea rechazar la solicitud pulse aqui [[ENLACERECHAZAR]].
+[[ENLACEMISTUTORIAS]] o introduce este codigo para poder entrar [[CODE]].","http://localhost:8080/ASTUTO/controller/solicitarTutoriaController.jsp");
+
+INSERT INTO configuracionInicial (slot, metodoAsignacion, previsionMinima, tiempoMaxEspera, nAusencias) values (10,2,24,24,5);
+
+INSERT INTO configuracionInicial (asunto, motivo, enlace) values ("ASTUTO. Envio Codigo Mis Tutorias","Bienvenido a ASTUTO (Aplicacion Web para la solicitud de TUTorias Online).
+Usted ha solicitado el codigo para ver sus tutorias, introduce este codigo: [[CODE]] o pulsa en el siguiente enlace [[ENLACECODE]].","http://localhost:8080/ASTUTO/controller/tutoriasAlumnosController.jsp");
+
+
+insert into enlacesInteres(nombre,URL,rol) values ("UCO","http://www.uco.es",1);
+insert into enlacesInteres(nombre,URL,rol) values ("UCO","http://www.uco.es",2);
+insert into enlacesInteres(nombre,URL,rol) values ("UCO","http://www.uco.es",3);
+insert into enlacesInteres(nombre,URL,rol) values ("Moodle","http://www.uco.es/moodle",3);
+

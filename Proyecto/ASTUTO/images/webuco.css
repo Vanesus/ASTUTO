@@ -1,0 +1,64 @@
+a:link {	text-decoration: none;}
+a:visited {	text-decoration: none;}
+a:hover {color:#D69E00;text-decoration: none;}
+a:active {	text-decoration: none;}
+.T1{font-size:1pt;font-family:Arial,Helvetica}
+.T3{font-size:3pt;font-family:Arial,Helvetica}
+.T5{font-size:5pt;font-family:Arial,Helvetica}
+.T7{font-size:7pt;font-family:Arial,Helvetica}
+.T7L{color:#8C1233;font-size:7pt;font-family:Arial,Helvetica}
+.T7V{font-size:7pt;font-family:Verdana,Arial,Helvetica}
+.T8{color:#000000;font-size:8pt;font-family:Arial,Helvetica}
+.T8a{text-align:justify;font-size:8pt;font-family:Arial,Helvetica}
+.T8V{font-size:8pt;font-family:Verdana,Arial,Helvetica}
+.T8L{color:#8c1229;font-size:8pt;font-family:Arial,Helvetica}
+.T8LA{color:#FEDC8C;font-size:8pt;font-family:Arial,Helvetica}
+.T8LB{color:#FFFFFF;font-size:8pt;font-family:Arial,Helvetica}
+.T8LMENU{color:#8E8E8E;font-size:8pt;font-family:Arial,Helvetica}
+.T8LEST{color:#00496E;font-size:8pt;font-family:Arial,Helvetica}
+.T8LPRF{color:#7C1025;font-size:8pt;font-family:Arial,Helvetica}
+.T8LPAS{color:#FFB508;font-size:8pt;font-family:Arial,Helvetica}
+.T8pt{font-size:8pt;font-family:Arial,Helvetica}
+.T8V{font-size:8pt;font-family:Verdana,Arial,Helvetica}
+.T9{color:#000000;font-size:9pt;font-family:Arial,Helvetica}
+.T9a{text-align:justify;font-size:9pt;font-family:Arial,Helvetica}
+.T9L{color:#8C1233;font-size:9pt;font-family:Arial,Helvetica}
+.T10{color:#000000;font-size:10pt;font-family:Arial,Helvetica}
+.T10a{text-align:justify;font-size:10pt;font-family:Arial,Helvetica}
+.T10L{color:#8c1229;font-size:11pt;font-family:Arial,Helvetica}
+.T10I{color:#FFFFFF;font-size:10pt;font-family:Arial,Helvetica}
+.T10V{font-size:10pt;font-family:Verdana,Arial,Helvetica}
+.T12{font-size:12pt;font-family:Arial,Helvetica}
+.T12V{font-size:12pt;font-family:Verdana,Arial,Helvetica}
+.T12a{text-align:justify;font-size:12pt;font-family:Arial,Helvetica}
+.T14{font-size:14pt;font-family:Arial,Helvetica}
+.T14V{font-size:14pt;font-family:Verdana,Arial,Helvetica}
+.T18T{font-size:18pt;font-family:Trebuchet MS,Verdana,Arial,Helvetica}
+.T20V{font-size:20pt;font-family:Verdana,Arial,Helvetica}
+.T24{font-size:24pt;font-family:Trebuchet MS,Verdana,Arial,Helvetica}
+.LINEA{color:#404040;font-size:9pt;font-family:Arial,Helvetica}
+.LINEA8{color:#404040;font-size:8pt;font-family:Arial,Helvetica}
+.LINEA7{color:#404040;font-size:7pt;font-family:Arial,Helvetica}
+.DTipo1{background-color:#f3cdd5;text-align:center;font-size:12pt;font-family:Arial,Helvetica}
+.DTipo2{background-color:#fdf6da;text-align:center; font-size:12pt;font-family:Arial,Helvetica}
+.DTipo3{background-color:#006699;text-align:center; font-size:12pt;color:#FFFFFF;font-family:Arial,Helvetica}
+.DTipo4{background-color:#808080;text-align:center; font-size:12pt;font-family:Arial,Helvetica}
+.DTipo5{background-color:#b7b874;text-align:center; font-size:12pt;font-family:Arial,Helvetica}
+.Estilo1 {color: #8c1229}
+.Estilo2 {color: #8C1233}
+.Estilo3 {font-size: 18pt}
+body{scrollbar-face-color:#FFE59D;scrollbar-shadow-color:#FFECB5;scrollbar-highlight-color:#D9D9D9;scrollbar-3dlight-color:#FDF6DA;scrollbar-darkshadow-color:#CCCCCC;scrollbar-track-color:#FDF6DA;scrollbar-arrow-color:#8C1229}
+.boton{
+        font-size:13px;
+        font-family:Helvetica;
+        font-weight:bold;
+        color:#FFFFFF;
+        background-color:#8c1229;
+		}
+.boton1{
+        font-size:13px;
+        font-family:Helvetica;
+        font-weight:bold;
+        color:#FFFFFF;
+        background-color:#8c1229;
+		}
